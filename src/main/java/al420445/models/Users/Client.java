@@ -1,0 +1,163 @@
+package al420445.models.Users;
+
+import al420445.models.Library.Document;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Client {
+
+    @Id
+    @GeneratedValue
+    private int clientID;
+
+    private String clientName;
+
+    private String clientAddress;
+
+    private double debt;
+
+    private boolean hasDebt;
+
+    @OneToMany
+    private List<Document> documents = new ArrayList<>();
+
+
+
+
+
+
+
+
+    public int getClientID() {
+        return clientID;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public String getClientAddress() {
+        return clientAddress;
+    }
+
+    public double getDebt() {
+        return debt;
+    }
+
+    public boolean isHasDebt() {
+        return hasDebt;
+    }
+
+    public void setClientID(int clientID) {
+        this.clientID = clientID;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public void setClientAddress(String clientAddress) {
+        this.clientAddress = clientAddress;
+    }
+
+    public void setDebt(double debt) {
+        this.debt = debt;
+    }
+
+    public void setHasDebt(boolean hasDebt) {
+        this.hasDebt = hasDebt;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    private void addDocument(Document document) {
+        this.documents.add(document);
+    }
+
+    private void removeDocument(Document d){
+        this.documents.remove(d);
+    }
+
+    public void rentDocument(Document d){
+        if(checkHasDebt()){
+            printInDebtRental();
+        }
+        else{
+            setDocumentIsRented(d);
+            setDocumentRentedBy(d);
+            addDocument(d);
+        }
+    }
+
+    public void checkDaysLeftOnRental(){
+        for (Document d: this.getDocuments()
+             ) {
+                System.out.println("ID: " + d.getDocumentID() + ", DAYS: " + getPeriod(d.getReturnDate(), LocalDate.now()));
+        }
+    }
+
+    private int getPeriod(LocalDate from, LocalDate to){
+        Period period = Period.between(from, to);
+        return period.getDays();
+    }
+
+    private void setDocumentRentedBy(Document d) {
+        d.setRentedBy(this);
+    }
+
+    private void setDocumentIsRented(Document d){
+        d.setRented(true);
+    }
+
+    public void returnDocument(Document d){
+        d.setRented(false);
+        if(checkReturnEligible(d)){
+            updateDept(d);
+        }
+        removeDocument(d);
+    }
+
+    private void updateDept(Document d){
+        Duration days = Duration.between(d.getReturnDate().atStartOfDay(), LocalDate.now());
+
+        long daysLate = days.toDays();
+
+        setDebt(0.25 * daysLate);
+
+        setHasDebt(true);
+    }
+
+    private boolean checkReturnEligible(Document d){
+        if(d.getReturnDate().isBefore(LocalDate.now())){
+            return true;
+        }
+        return false;
+    }
+
+    private void printInDebtRental(){
+        System.out.println("Location Impossible. Vous avez une dette de : " + getDebt());
+    }
+
+    private boolean checkHasDebt(){
+        return isHasDebt();
+    }
+
+
+}
