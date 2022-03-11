@@ -20,7 +20,7 @@ import java.time.LocalDate;
 public abstract class Document {
     @Id
     @GeneratedValue
-    int documentID;
+    long documentID;
 
     private int documentType; //1 for Livre, 2 for Media
 
@@ -38,7 +38,7 @@ public abstract class Document {
 
 
 
-    public int getDocumentID() {
+    public long getDocumentID() {
         return documentID;
     }
 
@@ -50,15 +50,6 @@ public abstract class Document {
         return releaseYear;
     }
 
-    public LocalDate getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate() {
-
-
-        this.returnDate = checkDocumentType();
-    }
 
     private LocalDate checkDocumentType() {
         if(this.documentType == 1){
@@ -93,13 +84,6 @@ public abstract class Document {
         this.releaseYear = releaseYear;
     }
 
-    public boolean isRented() {
-        return isRented;
-    }
-
-    public void setRented(boolean rented) {
-        isRented = rented;
-    }
 
     public Client getRentedBy() {
         return rentedBy;
@@ -116,8 +100,6 @@ public abstract class Document {
                 ", documentType=" + documentType +
                 ", author='" + author + '\'' +
                 ", releaseYear=" + releaseYear +
-                ", returnDate=" + returnDate +
-                ", isRented=" + isRented +
                 ", rentedBy=" + rentedBy +
                 '}';
     }

@@ -102,16 +102,8 @@ public class Client {
             printInDebtRental();
         }
         else{
-            setDocumentIsRented(d);
             setDocumentRentedBy(d);
             addDocument(d);
-        }
-    }
-
-    public void checkDaysLeftOnRental(){
-        for (Document d: this.getDocuments()
-             ) {
-                System.out.println("ID: " + d.getDocumentID() + ", DAYS: " + getPeriod(d.getReturnDate(), LocalDate.now()));
         }
     }
 
@@ -124,34 +116,6 @@ public class Client {
         d.setRentedBy(this);
     }
 
-    private void setDocumentIsRented(Document d){
-        d.setRented(true);
-    }
-
-    public void returnDocument(Document d){
-        d.setRented(false);
-        if(checkReturnEligible(d)){
-            updateDept(d);
-        }
-        removeDocument(d);
-    }
-
-    private void updateDept(Document d){
-        Duration days = Duration.between(d.getReturnDate().atStartOfDay(), LocalDate.now());
-
-        long daysLate = days.toDays();
-
-        setDebt(0.25 * daysLate);
-
-        setHasDebt(true);
-    }
-
-    private boolean checkReturnEligible(Document d){
-        if(d.getReturnDate().isBefore(LocalDate.now())){
-            return true;
-        }
-        return false;
-    }
 
     private void printInDebtRental(){
         System.out.println("Location Impossible. Vous avez une dette de : " + getDebt());
