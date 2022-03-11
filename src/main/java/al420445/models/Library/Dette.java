@@ -1,4 +1,4 @@
 package al420445.models.Library;
 
-public class Fine {
+public class Dette {
 }

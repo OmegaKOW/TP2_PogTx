@@ -1,12 +1,14 @@
 package al420445.Persistence;
 
 import al420445.models.Library.Document;
+import al420445.models.Library.Livre;
 import al420445.models.Users.Client;
 import al420445.models.Users.Employe;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 public class LibraryDaoJPA implements LibraryDao{
 
@@ -35,6 +37,7 @@ public class LibraryDaoJPA implements LibraryDao{
         em.close();
     }
 
+
     @Override
     public long createClient(String name, String address) {
 
@@ -56,6 +59,22 @@ public class LibraryDaoJPA implements LibraryDao{
         final Document doc = Document.builder().title(title).author(author).editor(editor).exemplaires(exemplaires).releaseYear(release).build();
         save(doc);
         return doc.getDocumentID();
+    }
+
+    @Override
+    public Livre getLivreWithTitle(String title) {
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        final TypedQuery<Livre> query = em.createQuery(
+                "select l from Livre l where l.title like :livreTitle"
+        ,Livre.class);
+        query.setParameter("livreTitle", title);
+        final Livre livre = query.getSingleResult();
+
+        em.getTransaction().commit();
+        em.close();
+        return livre;
     }
 
 
