@@ -1,18 +1,15 @@
 package al420445;
 
 import al420445.Persistence.LibraryDaoJPA;
-import al420445.Service.LibraryService;
+import al420445.Service.ClientService;
 
 public class Main {
 
     public static void main(String[] args) {
 
 
-        LibraryService service = new LibraryService(new LibraryDaoJPA());
-        service.createClient("John Doe", "123 Java Rd");
-        service.createDocument();
-        service.createDocument();
-        service.createEmploye("Matt", "password");
+        ClientService cs = new ClientService(new LibraryDaoJPA());
+        cs.createClient("John Doe", "123 Java Rd");
 
     }
 }

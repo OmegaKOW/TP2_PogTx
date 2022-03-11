@@ -2,6 +2,7 @@ package al420445.models.Library;
 
 import al420445.models.Users.Client;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public abstract class Document {
     @Id
     @GeneratedValue
@@ -28,11 +30,9 @@ public abstract class Document {
 
     private String editor;
 
+    private long exemplaires;
+
     private int releaseYear;
-
-    private LocalDate returnDate;
-
-    private boolean isRented;
 
     private Client rentedBy;
 

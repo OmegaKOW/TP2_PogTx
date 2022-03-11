@@ -1,5 +1,9 @@
 package al420445.Persistence;
 
+import al420445.models.Library.Document;
+import al420445.models.Users.Client;
+import al420445.models.Users.Employe;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -33,12 +37,23 @@ public class LibraryDaoJPA implements LibraryDao{
 
     @Override
     public long createClient(String name, String address) {
-        return 0;
+
+        final Client client= Client.builder().clientName(name).clientAddress(address).build();
+        save(client);
+        return client.getClientID();
     }
 
     @Override
     public long createEmploye(String user, String pass) {
-        return 0;
+
+        final Employe employe = Employe.builder().user(user).password(pass).build();
+        save(employe);
+        return employe.getId();
+
+    }
+    @Override
+    public void addDocToLibrary(String title, String author, String editor, long exemplaires, int release){
+        final Document doc = Document.builder().title(title).author(author).editor(editor).exemplaires(exemplaires).releaseYear(release).build();
     }
 
 
