@@ -11,4 +11,6 @@ public interface LibraryDao {
     long addDocToLibrary(String title, String author, String editor, long exemplaires, int release);
 
     Livre getLivreWithTitle(String title);
+
+    Livre getLivreWithAuthor(String author);
 }
