@@ -15,7 +15,7 @@ public class Livre extends Document {
 
     private int nbPages;
 
-    private Genres genre;
+    private String genre;
 
     public Livre() {
 

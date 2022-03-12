@@ -93,5 +93,21 @@ public class LibraryDaoJPA implements LibraryDao{
         return livre;
     }
 
+    @Override
+    public Livre getLivreWithGenre(String genre) {
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        final TypedQuery<Livre> query = em.createQuery(
+                "select l from Livre l where l.genre like :livreGenre"
+                ,Livre.class);
+        query.setParameter("livreGenre", genre);
+        final Livre livre = query.getSingleResult();
+
+        em.getTransaction().commit();
+        em.close();
+        return livre;
+    }
+
 
 }
