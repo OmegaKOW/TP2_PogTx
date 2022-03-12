@@ -13,4 +13,6 @@ public interface LibraryDao {
     Livre getLivreWithTitle(String title);
 
     Livre getLivreWithAuthor(String author);
+
+    Livre getLivreWithGenre(String genre);
 }

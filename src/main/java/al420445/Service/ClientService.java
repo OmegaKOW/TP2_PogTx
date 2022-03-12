@@ -15,4 +15,7 @@ public class ClientService {
     }
 
 
+    public long borrowBook(){
+        return 0;
+    }
 }

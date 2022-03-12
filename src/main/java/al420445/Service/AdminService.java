@@ -23,4 +23,12 @@ public class AdminService {
     public Livre getLivreWithTitle(String title){
         return dao.getLivreWithTitle(title);
     }
+
+    public Livre getLivreWithAuthor(String author){
+        return dao.getLivreWithAuthor(author);
+    }
+
+    public Livre getLivreWithGenre(String genre){
+        return dao.getLivreWithGenre(genre);
+    }
 }
