@@ -35,6 +35,8 @@ public abstract class Document {
 
 
 
+
+
     public long getDocumentID() {
         return documentID;
     }
