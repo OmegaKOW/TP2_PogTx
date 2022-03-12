@@ -28,6 +28,10 @@ public class AdminService {
         return dao.getLivreWithAuthor(author);
     }
 
+    public Livre getLivreWithYear(long year){
+        return dao.getLivreWithYear(year);
+    }
+
     public Livre getLivreWithGenre(String genre){
         return dao.getLivreWithGenre(genre);
     }

@@ -15,4 +15,6 @@ public interface LibraryDao {
     Livre getLivreWithAuthor(String author);
 
     Livre getLivreWithGenre(String genre);
+
+    Livre getLivreWithYear(long year);
 }
