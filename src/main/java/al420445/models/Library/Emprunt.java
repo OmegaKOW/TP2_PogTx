@@ -29,7 +29,7 @@ public class Emprunt {
     @OneToOne
     private Document doc;
 
-    private LocalDate date;
+    private LocalDate dateDeRetour;
 
 
 
