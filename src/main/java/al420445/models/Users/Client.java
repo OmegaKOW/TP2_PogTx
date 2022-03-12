@@ -36,8 +36,8 @@ public class Client {
     @OneToMany
     private List<Document> documents = new ArrayList<>();
 
-    @OneToOne
-    private Dette dette;
+    @OneToMany
+    private List<Dette> dette = new ArrayList<>();
 
 
 
