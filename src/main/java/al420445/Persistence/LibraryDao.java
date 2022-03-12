@@ -10,6 +10,8 @@ public interface LibraryDao {
     long createEmploye(String user, String pass);
     long addDocToLibrary(String title, String author, String editor, long exemplaires, int release);
 
+    Livre getLivre(long livreId);
+
     Livre getLivreWithTitle(String title);
 
     Livre getLivreWithAuthor(String author);
@@ -17,4 +19,6 @@ public interface LibraryDao {
     Livre getLivreWithGenre(String genre);
 
     Livre getLivreWithYear(long year);
+
+    long borrowBook(long id);
 }

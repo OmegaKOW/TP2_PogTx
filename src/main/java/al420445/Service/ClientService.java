@@ -33,7 +33,7 @@ public class ClientService {
         return dao.getLivreWithGenre(genre);
     }
 
-    public long borrowBook(){
-        return 0;
+    public long borrowBookWithTitle(long id){
+        return dao.borrowBook(id);
     }
 }

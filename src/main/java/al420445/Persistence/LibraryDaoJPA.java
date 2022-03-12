@@ -1,6 +1,7 @@
 package al420445.Persistence;
 
 import al420445.models.Library.Document;
+import al420445.models.Library.Emprunt;
 import al420445.models.Library.Livre;
 import al420445.models.Users.Client;
 import al420445.models.Users.Employe;
@@ -59,6 +60,19 @@ public class LibraryDaoJPA implements LibraryDao{
         final Document doc = Document.builder().title(title).author(author).editor(editor).exemplaires(exemplaires).releaseYear(release).build();
         save(doc);
         return doc.getDocumentID();
+    }
+
+
+    @Override
+    public Livre getLivre(long livreId) {
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        final Livre cours = em.find(Livre.class, livreId);
+
+        em.getTransaction().commit();
+        em.close();
+        return cours;
     }
 
     @Override
@@ -123,6 +137,11 @@ public class LibraryDaoJPA implements LibraryDao{
         em.getTransaction().commit();
         em.close();
         return livre;
+    }
+
+    @Override
+    public long borrowBook(long bookId){
+        Emprunt emprunt = Emprunt.builder().doc(getLivre(bookId)).build();
     }
 
 

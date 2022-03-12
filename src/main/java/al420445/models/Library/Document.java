@@ -22,8 +22,6 @@ public abstract class Document {
     @GeneratedValue
     long documentID;
 
-    private int documentType; //1 for Livre, 2 for Media
-
     private String title;
 
     private String author;
@@ -34,7 +32,6 @@ public abstract class Document {
 
     private int releaseYear;
 
-    private Client rentedBy;
 
 
 
@@ -51,27 +48,6 @@ public abstract class Document {
     }
 
 
-    private LocalDate checkDocumentType() {
-        if(this.documentType == 1){
-            return LocalDate.now().plusDays(21);
-        }
-        else{
-            return LocalDate.now().plusDays(checkMediaType());
-        }
-    }
-
-    private int checkMediaType() {
-        if(this.getClass() == Media.class){
-            MediaType mt = ((Media) this).getType();
-            if(mt == MediaType.DVD){
-                return 7;
-            }else{
-                return 14;
-            }
-        }
-        return 0;
-    }
-
     public void setDocumentID(int documentID) {
         this.documentID = documentID;
     }
@@ -85,22 +61,13 @@ public abstract class Document {
     }
 
 
-    public Client getRentedBy() {
-        return rentedBy;
-    }
-
-    public void setRentedBy(Client rentedBy) {
-        this.rentedBy = rentedBy;
-    }
 
     @Override
     public String toString() {
         return "Document{" +
                 "documentID=" + documentID +
-                ", documentType=" + documentType +
                 ", author='" + author + '\'' +
                 ", releaseYear=" + releaseYear +
-                ", rentedBy=" + rentedBy +
                 '}';
     }
 }

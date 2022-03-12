@@ -11,8 +11,6 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 public class Livre extends Document {
 
-    private int id;
-
     private int nbPages;
 
     private String genre;
@@ -21,9 +19,6 @@ public class Livre extends Document {
 
     }
 
-    public int getId() {
-        return id;
-    }
 
     public int getNbPages() {
         return nbPages;

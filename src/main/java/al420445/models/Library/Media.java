@@ -12,9 +12,6 @@ import javax.persistence.Entity;
 public class Media extends Document {
 
 
-
-    int id;
-
     String length;
 
     MediaType type;
@@ -24,8 +21,8 @@ public class Media extends Document {
 
     }
 
-    public int getId() {
-        return id;
+    public long getId() {
+        return documentID;
     }
 
     public String getLength() {
