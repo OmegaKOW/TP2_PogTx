@@ -68,11 +68,23 @@ public class LibraryDaoJPA implements LibraryDao{
         final EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        final Livre cours = em.find(Livre.class, livreId);
+        final Livre livre = em.find(Livre.class, livreId);
 
         em.getTransaction().commit();
         em.close();
-        return cours;
+        return livre;
+    }
+
+    @Override
+    public Client getClient(long clientId) {
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        final Client client = em.find(Client.class, clientId);
+
+        em.getTransaction().commit();
+        em.close();
+        return client;
     }
 
     @Override
@@ -140,8 +152,10 @@ public class LibraryDaoJPA implements LibraryDao{
     }
 
     @Override
-    public long borrowBook(long bookId){
-        Emprunt emprunt = Emprunt.builder().doc(getLivre(bookId)).build();
+    public long borrowBook(long bookId, long clientId){
+        Emprunt emprunt = Emprunt.builder().doc(getLivre(bookId)).client(getClient(clientId)).build();
+        save(emprunt);
+        return emprunt.getId();
     }
 
 

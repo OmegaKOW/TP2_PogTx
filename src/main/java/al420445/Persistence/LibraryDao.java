@@ -1,6 +1,7 @@
 package al420445.Persistence;
 
 import al420445.models.Library.Livre;
+import al420445.models.Users.Client;
 
 public interface LibraryDao {
 
@@ -12,6 +13,8 @@ public interface LibraryDao {
 
     Livre getLivre(long livreId);
 
+    Client getClient(long clientId);
+
     Livre getLivreWithTitle(String title);
 
     Livre getLivreWithAuthor(String author);
@@ -20,5 +23,5 @@ public interface LibraryDao {
 
     Livre getLivreWithYear(long year);
 
-    long borrowBook(long id);
+    long borrowBook(long bookId, long clientId);
 }
