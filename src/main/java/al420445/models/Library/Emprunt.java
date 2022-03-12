@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -27,6 +28,8 @@ public class Emprunt {
 
     @OneToOne
     private Document doc;
+
+    private LocalDate date;
 
 
 
