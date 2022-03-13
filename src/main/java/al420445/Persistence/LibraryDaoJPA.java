@@ -153,8 +153,9 @@ public class LibraryDaoJPA implements LibraryDao{
 
     @Override
     public long borrowBook(long bookId, long clientId){
-        Emprunt emprunt = Emprunt.builder().doc(getLivre(bookId)).client(getClient(clientId)).build();
-        save(emprunt);
+        final Client client = getClient(clientId);
+        final Document document = getLivre(bookId);
+        final Emprunt emprunt = client.borrowBook(document);
         return emprunt.getId();
     }
 

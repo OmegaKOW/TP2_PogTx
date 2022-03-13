@@ -2,6 +2,8 @@ package al420445.models.Users;
 
 import al420445.models.Library.Dette;
 import al420445.models.Library.Document;
+import al420445.models.Library.Emprunt;
+import al420445.models.Library.Livre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -58,6 +60,20 @@ public class Client {
         return clientAddress;
     }
 
+
+    public Emprunt borrowBook(Document document){
+        if(verifyEnoughExemplaires(document)){
+            Emprunt emprunt = Emprunt.builder().client(this).doc(document).build();
+            emprunt.getDoc().setExemplaires(emprunt.getDoc().getExemplaires() - 1);
+            return emprunt;
+        }
+        else return null;
+
+    }
+
+    private boolean verifyEnoughExemplaires(Document document){
+        return document.getExemplaires() > 0;
+    }
 
 
 
