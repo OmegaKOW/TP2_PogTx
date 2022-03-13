@@ -9,6 +9,7 @@ import al420445.models.Library.Emprunt;
 import al420445.models.Library.Livre;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 
@@ -38,6 +39,12 @@ public class Main {
         System.out.println(book1id);
         System.out.println(clientId);
         System.out.println(empruntId);
+
+        List<Emprunt> emprunts = cs.getEmpruntsWithDateRetours(clientId);
+
+        for(Emprunt e : emprunts){
+            System.out.println(e.toString());
+        }
 
         System.out.println(l.toString());
         System.out.println(l2.toString());
