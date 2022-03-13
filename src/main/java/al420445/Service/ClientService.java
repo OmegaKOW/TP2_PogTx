@@ -3,7 +3,10 @@ package al420445.Service;
 import al420445.Persistence.LibraryDao;
 import al420445.Persistence.LibraryDaoJPA;
 import al420445.models.Library.Dette;
+import al420445.models.Library.Emprunt;
 import al420445.models.Library.Livre;
+
+import java.util.List;
 
 public class ClientService {
 
@@ -44,5 +47,9 @@ public class ClientService {
 
     public Dette getDettesWithClientId(long clientId){
         return dao.getDettesWithClientId(clientId);
+    }
+
+    public List<Emprunt> getEmpruntsWithDateRetours(long clientId){
+        return dao.getEmpruntsWithDateRetours(clientId);
     }
 }

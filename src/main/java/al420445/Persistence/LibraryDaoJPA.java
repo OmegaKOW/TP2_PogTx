@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class LibraryDaoJPA implements LibraryDao{
 
@@ -224,6 +225,22 @@ public class LibraryDaoJPA implements LibraryDao{
             save(dette);
         }
 
+    }
+
+    @Override
+    public List<Emprunt> getEmpruntsWithDateRetours(long clientId) {
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        final TypedQuery<Emprunt> query = em.createQuery(
+                "select e from Emprunt e where e.client.id = :clientId"
+                ,Emprunt.class);
+        query.setParameter("clientId", clientId);
+        final List<Emprunt> emprunts = query.getResultList();
+
+        em.getTransaction().commit();
+        em.close();
+        return emprunts;
     }
 
 

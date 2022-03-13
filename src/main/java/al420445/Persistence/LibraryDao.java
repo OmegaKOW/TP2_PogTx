@@ -5,6 +5,8 @@ import al420445.models.Library.Emprunt;
 import al420445.models.Library.Livre;
 import al420445.models.Users.Client;
 
+import java.util.List;
+
 public interface LibraryDao {
 
     <T> void save(T t);
@@ -33,4 +35,6 @@ public interface LibraryDao {
     Dette getDettesWithClientId(long clientId);
 
     void returnBook(long clientId, long id);
+
+    List<Emprunt> getEmpruntsWithDateRetours(long clientId);
 }
