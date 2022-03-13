@@ -26,7 +26,7 @@ public class Client {
 
     @Id
     @GeneratedValue
-    private int clientID;
+    private long clientID;
 
     private String clientName;
 
@@ -47,7 +47,7 @@ public class Client {
 
 
 
-    public int getClientID() {
+    public long getClientID() {
         return clientID;
     }
 
@@ -101,7 +101,6 @@ public class Client {
     private boolean checkHasDebts(){
         return !this.dettes.isEmpty();
     }
-
 
 
 }

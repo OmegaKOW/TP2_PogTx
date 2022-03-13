@@ -1,6 +1,7 @@
 package al420445.models.Users;
 
 import al420445.models.Library.Document;
+import al420445.models.Library.Emprunt;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,8 +49,8 @@ public class Employe {
 
     public void viewUserList(Client c){
         if(isAdmin()){
-            for(Document document : c.getDocuments()){
-                System.out.println(document.toString());
+            for(Emprunt emprunt : c.getEmprunts()){
+                System.out.println(emprunt.toString());
             }
         }
     }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,9 +15,8 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public abstract class Document {
     @Id
     @GeneratedValue
@@ -32,9 +32,9 @@ public abstract class Document {
 
     private int releaseYear;
 
+    public Document() {
 
-
-
+    }
 
 
     public long getDocumentID() {

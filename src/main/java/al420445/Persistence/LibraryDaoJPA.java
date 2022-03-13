@@ -57,8 +57,8 @@ public class LibraryDaoJPA implements LibraryDao{
 
     }
     @Override
-    public long addDocToLibrary(String title, String author, String editor, long exemplaires, int release){
-        final Document doc = Document.builder().title(title).author(author).editor(editor).exemplaires(exemplaires).releaseYear(release).build();
+    public long addBookToLibrary(String title, String author, String editor, long exemplaires, int release){
+        final Livre doc = (Livre) Livre.builder().title(title).author(author).editor(editor).exemplaires(exemplaires).releaseYear(release).build();
         save(doc);
         return doc.getDocumentID();
     }

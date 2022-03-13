@@ -9,7 +9,8 @@ public interface LibraryDao {
     <T> void merge(T t);
     long createClient(String name, String address);
     long createEmploye(String user, String pass);
-    long addDocToLibrary(String title, String author, String editor, long exemplaires, int release);
+
+    long addBookToLibrary(String title, String author, String editor, long exemplaires, int release);
 
     Livre getLivre(long livreId);
 

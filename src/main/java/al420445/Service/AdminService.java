@@ -16,8 +16,8 @@ public class AdminService {
         return dao.createEmploye(user, pass);
     }
 
-    public long addDocToLibrary(String title, String author, String editor,long exemplaires, int release){
-        return dao.addDocToLibrary(title,author,editor,exemplaires,release);
+    public long addBookToLibrary(String title, String author, String editor,long exemplaires, int release){
+        return dao.addBookToLibrary(title,author,editor,exemplaires,release);
     }
 
     public Livre getLivreWithTitle(String title){
