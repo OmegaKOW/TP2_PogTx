@@ -22,10 +22,12 @@ public class Dette {
     @GeneratedValue
     private long id;
 
+    private double dette;
+
     @OneToMany
     private List<Emprunt> empruntsEndettes = new ArrayList<>();
 
-    @OneToOne
+    @ManyToOne
     private Client client;
 
 }

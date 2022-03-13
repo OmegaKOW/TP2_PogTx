@@ -65,6 +65,7 @@ public class Client {
         if(verifyEnoughExemplaires(document)){
             Emprunt emprunt = Emprunt.builder().client(this).doc(document).build();
             emprunt.getDoc().setExemplaires(emprunt.getDoc().getExemplaires() - 1);
+            emprunt.setDateRetour();
             return emprunt;
         }
         else return null;

@@ -35,4 +35,6 @@ public class AdminService {
     public Livre getLivreWithGenre(String genre){
         return dao.getLivreWithGenre(genre);
     }
+
+
 }

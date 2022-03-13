@@ -24,4 +24,6 @@ public interface LibraryDao {
     Livre getLivreWithYear(long year);
 
     long borrowBook(long bookId, long clientId);
+
+    double returnBook();
 }

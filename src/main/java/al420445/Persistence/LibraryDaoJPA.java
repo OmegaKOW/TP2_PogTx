@@ -159,5 +159,10 @@ public class LibraryDaoJPA implements LibraryDao{
         return emprunt.getId();
     }
 
+    @Override
+    public double returnBook() {
+        return 0;
+    }
+
 
 }

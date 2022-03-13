@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Data
@@ -31,6 +32,28 @@ public class Emprunt {
 
     private LocalDate dateDeRetour;
 
+    public void setDateRetour(){
+        if(isLivre()){
+            this.dateDeRetour = LocalDate.now().plusDays(21);
+        }
+        else {
+            this.dateDeRetour = LocalDate.now().plusDays(checkMediaType());
+        }
+    }
 
+    private boolean isLivre() {
+        return checkDocType() == Livre.class;
+    }
 
+    private Class checkDocType(){
+        return doc.getClass();
+    }
+
+    private long checkMediaType(){
+        Media med = (Media) doc;
+        if(med.type == MediaType.DVD){
+            return 7;
+        }
+        else return 14;
+    }
 }
