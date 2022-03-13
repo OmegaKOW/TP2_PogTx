@@ -32,8 +32,6 @@ public class Client {
 
     private String clientAddress;
 
-    private double debt;
-
     private boolean hasDebt;
 
     @OneToMany
@@ -63,7 +61,7 @@ public class Client {
 
 
     public Emprunt borrowBook(Document document){
-        if(verifyEnoughExemplaires(document)){
+        if(verifyEnoughExemplaires(document) && !checkHasDebts()){
             Emprunt emprunt = Emprunt.builder().client(this).doc(document).build();
             emprunt.getDoc().setExemplaires(emprunt.getDoc().getExemplaires() - 1);
             emprunt.setDateRetour();
@@ -79,7 +77,7 @@ public class Client {
     }
 
 
-    public double returnBook(Livre livre){
+    public void returnBook(Livre livre){
         for(Emprunt e : emprunts){
             if(e.getDoc() == livre){
                 checkDetteEmprunt(e);
@@ -87,16 +85,20 @@ public class Client {
         }
     }
 
-    public long checkDetteEmprunt(Emprunt emprunt){
+    private long checkDetteEmprunt(Emprunt emprunt){
         long amtOfDaysLate = emprunt.getDateDeRetour().until(LocalDate.now(), ChronoUnit.DAYS);
         setNewDette(emprunt, amtOfDaysLate);
         return amtOfDaysLate;
     }
 
     private void setNewDette(Emprunt e, long daysLate){
-        Dette dette = Dette.builder().dette(daysLate * 0.25).build();
+        Dette dette = Dette.builder().dette(daysLate * 0.25).client(this).build();
         dette.getEmpruntsEndettes().add(e);
         dettes.add(dette);
+    }
+
+    private boolean checkHasDebts(){
+        return !this.dettes.isEmpty();
     }
 
 

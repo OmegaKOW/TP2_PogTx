@@ -37,7 +37,7 @@ public class ClientService {
         return dao.borrowBook(bookId, clientId);
     }
 
-    public double returnBook(long bookId, long clientId){
-        return dao.returnBook(bookId, clientId);
+    public void returnBook(long bookId, long clientId){
+        dao.returnBook(bookId, clientId);
     }
 }

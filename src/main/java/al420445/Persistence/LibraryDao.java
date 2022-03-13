@@ -25,5 +25,5 @@ public interface LibraryDao {
 
     long borrowBook(long bookId, long clientId);
 
-    double returnBook(long clientId, long id);
+    void returnBook(long clientId, long id);
 }

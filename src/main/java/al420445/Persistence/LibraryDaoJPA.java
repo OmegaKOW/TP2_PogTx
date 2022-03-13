@@ -160,10 +160,10 @@ public class LibraryDaoJPA implements LibraryDao{
     }
 
     @Override
-    public double returnBook(long bookId, long clientId) {
+    public void returnBook(long bookId, long clientId) {
         final Client client = getClient(clientId);
         final Livre livre = getLivre(bookId);
-        return client.returnBook(livre);
+        client.returnBook(livre);
     }
 
 
