@@ -197,12 +197,26 @@ public class LibraryDaoJPA implements LibraryDao{
 
     }
 
+    @Override
+    public Dette getDettesWithClientId(long clientId){
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
 
+        final TypedQuery<Dette> query = em.createQuery(
+                "select d from Dette d where d.client.id = :clientId"
+                ,Dette.class);
+        query.setParameter("clientId", clientId);
+        final Dette dette = query.getSingleResult();
+
+        em.getTransaction().commit();
+        em.close();
+        return dette;
+    }
 
 
     @Override
     public void returnBook(long bookId, long clientId) {
-        final Client client = getClient(clientId);
+        final Client client = getClientWithEmpruntsAndDettes(clientId);
         final Livre livre = getLivre(bookId);
         final Dette dette = client.returnBook(livre);
         if(dette != null){

@@ -42,7 +42,7 @@ public class ClientService {
         dao.returnBook(bookId, clientId);
     }
 
-    public Dette getDettes(){
-        return null;
+    public Dette getDettesWithClientId(long clientId){
+        return dao.getDettesWithClientId(clientId);
     }
 }

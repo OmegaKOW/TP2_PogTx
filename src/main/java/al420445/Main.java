@@ -21,10 +21,13 @@ public class Main {
         long empruntId = cs.borrowBookWithId(book1id, clientId);
 
         Livre l = cs.getLivreWithTitle("%chat%");
-        Dette d = cs.getDettes();
+        cs.returnBook(book1id, clientId);
+        //Dette d = cs.getDettesWithClientId(clientId);
         System.out.println(book1id);
         System.out.println(clientId);
         System.out.println(empruntId);
         System.out.println(l.toString());
+        //System.out.println(d.toString());
+
     }
 }

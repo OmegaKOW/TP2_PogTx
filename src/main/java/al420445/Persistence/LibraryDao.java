@@ -1,5 +1,6 @@
 package al420445.Persistence;
 
+import al420445.models.Library.Dette;
 import al420445.models.Library.Emprunt;
 import al420445.models.Library.Livre;
 import al420445.models.Users.Client;
@@ -28,6 +29,8 @@ public interface LibraryDao {
     long borrowBook(long bookId, long clientId);
 
     Emprunt getEmpruntWithBookIdAndClientId(long bookId, long clientId);
+
+    Dette getDettesWithClientId(long clientId);
 
     void returnBook(long clientId, long id);
 }
