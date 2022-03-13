@@ -40,4 +40,8 @@ public class ClientService {
     public void returnBook(long bookId, long clientId){
         dao.returnBook(bookId, clientId);
     }
+
+    public void getDettes(){
+
+    }
 }

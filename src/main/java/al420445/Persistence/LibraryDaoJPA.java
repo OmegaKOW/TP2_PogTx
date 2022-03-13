@@ -1,5 +1,6 @@
 package al420445.Persistence;
 
+import al420445.models.Library.Dette;
 import al420445.models.Library.Document;
 import al420445.models.Library.Emprunt;
 import al420445.models.Library.Livre;
@@ -156,6 +157,9 @@ public class LibraryDaoJPA implements LibraryDao{
         final Client client = getClient(clientId);
         final Document document = getLivre(bookId);
         final Emprunt emprunt = client.borrowBook(document);
+        if(emprunt != null){
+            save(emprunt);
+        }
         return emprunt.getId();
     }
 
@@ -163,7 +167,11 @@ public class LibraryDaoJPA implements LibraryDao{
     public void returnBook(long bookId, long clientId) {
         final Client client = getClient(clientId);
         final Livre livre = getLivre(bookId);
-        client.returnBook(livre);
+        final Dette dette = client.returnBook(livre);
+        if(dette != null){
+            save(dette);
+        }
+
     }
 
 

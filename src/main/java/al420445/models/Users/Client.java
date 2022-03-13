@@ -77,24 +77,25 @@ public class Client {
     }
 
 
-    public void returnBook(Livre livre){
+    public Dette returnBook(Livre livre){
         for(Emprunt e : emprunts){
             if(e.getDoc() == livre){
-                checkDetteEmprunt(e);
+                return checkDetteEmprunt(e);
             }
         }
+        return null;
     }
 
-    private long checkDetteEmprunt(Emprunt emprunt){
+    private Dette checkDetteEmprunt(Emprunt emprunt){
         long amtOfDaysLate = emprunt.getDateDeRetour().until(LocalDate.now(), ChronoUnit.DAYS);
-        setNewDette(emprunt, amtOfDaysLate);
-        return amtOfDaysLate;
+        return setNewDette(emprunt, amtOfDaysLate);
     }
 
-    private void setNewDette(Emprunt e, long daysLate){
+    private Dette setNewDette(Emprunt e, long daysLate){
         Dette dette = Dette.builder().dette(daysLate * 0.25).client(this).build();
         dette.getEmpruntsEndettes().add(e);
         dettes.add(dette);
+        return dette;
     }
 
     private boolean checkHasDebts(){
