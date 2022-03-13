@@ -2,6 +2,7 @@ package al420445.Service;
 
 import al420445.Persistence.LibraryDao;
 import al420445.models.Library.Document;
+import al420445.models.Library.Emprunt;
 import al420445.models.Library.Livre;
 
 public class AdminService {
@@ -34,6 +35,10 @@ public class AdminService {
 
     public Livre getLivreWithGenre(String genre){
         return dao.getLivreWithGenre(genre);
+    }
+
+    public Emprunt getEmprunt(long bookId, long clientId){
+        return dao.getEmpruntWithBookIdAndClientId(bookId, clientId);
     }
 
 
