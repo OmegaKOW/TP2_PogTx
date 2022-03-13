@@ -2,6 +2,7 @@ package al420445.Service;
 
 import al420445.Persistence.LibraryDao;
 import al420445.Persistence.LibraryDaoJPA;
+import al420445.models.Library.Dette;
 import al420445.models.Library.Livre;
 
 public class ClientService {
@@ -41,5 +42,7 @@ public class ClientService {
         dao.returnBook(bookId, clientId);
     }
 
-    public void getDettes(){}
+    public Dette getDettes(){
+        return null;
+    }
 }

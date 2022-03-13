@@ -4,6 +4,7 @@ import al420445.Persistence.LibraryDao;
 import al420445.Persistence.LibraryDaoJPA;
 import al420445.Service.AdminService;
 import al420445.Service.ClientService;
+import al420445.models.Library.Dette;
 import al420445.models.Library.Livre;
 
 import java.util.Arrays;
@@ -20,6 +21,7 @@ public class Main {
         long empruntId = cs.borrowBookWithId(book1id, clientId);
 
         Livre l = cs.getLivreWithTitle("%chat%");
+        Dette d = cs.getDettes();
         System.out.println(book1id);
         System.out.println(clientId);
         System.out.println(empruntId);

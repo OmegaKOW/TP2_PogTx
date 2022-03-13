@@ -179,11 +179,34 @@ public class LibraryDaoJPA implements LibraryDao{
     }
 
     @Override
+    public Emprunt getEmpruntWithBookIdAndClientId(long bookId, long clientId){
+
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        final TypedQuery<Emprunt> query = em.createQuery(
+                "select e from Emprunt e left join fetch e.client ec left join fetch e.doc ed where ec.clientID = :clientId and ed.id = :bookId"
+                , Emprunt.class);
+        query.setParameter("clientId", clientId);
+        query.setParameter("bookId", bookId);
+        final Emprunt emprunt = query.getSingleResult();
+
+        em.getTransaction().commit();
+        em.close();
+        return emprunt;
+
+    }
+
+
+
+
+    @Override
     public void returnBook(long bookId, long clientId) {
         final Client client = getClient(clientId);
         final Livre livre = getLivre(bookId);
         final Dette dette = client.returnBook(livre);
         if(dette != null){
+            dette.getEmpruntsEndettes().add(getEmpruntWithBookIdAndClientId(bookId,clientId));
             save(dette);
         }
 
