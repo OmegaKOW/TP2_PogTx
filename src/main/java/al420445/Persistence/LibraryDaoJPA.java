@@ -144,7 +144,7 @@ public class LibraryDaoJPA implements LibraryDao{
         final TypedQuery<Livre> query = em.createQuery(
                 "select l from Livre l where l.releaseYear = :releaseYear"
                 ,Livre.class);
-        query.setParameter("releaseYear", year);
+        query.setParameter("releaseYear", (int) year);
         final Livre livre = query.getSingleResult();
 
         em.getTransaction().commit();
