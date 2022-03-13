@@ -57,8 +57,8 @@ public class LibraryDaoJPA implements LibraryDao{
 
     }
     @Override
-    public long addBookToLibrary(String title, String author, String editor, long exemplaires, int release){
-        final Livre doc = (Livre) Livre.builder().title(title).author(author).editor(editor).exemplaires(exemplaires).releaseYear(release).build();
+    public long addBookToLibrary(String title, String author, String editor, long exemplaires, int release, int nbPages, String genre){
+        final Livre doc = (Livre) Livre.builder().title(title).author(author).editor(editor).exemplaires(exemplaires).releaseYear(release).nbPages(nbPages).genre(genre).build();
         save(doc);
         return doc.getDocumentID();
     }
@@ -154,13 +154,28 @@ public class LibraryDaoJPA implements LibraryDao{
 
     @Override
     public long borrowBook(long bookId, long clientId){
-        final Client client = getClient(clientId);
+        final Client client = getClientWithEmpruntsAndDettes(clientId);
         final Document document = getLivre(bookId);
         final Emprunt emprunt = client.borrowBook(document);
         if(emprunt != null){
             save(emprunt);
         }
         return emprunt.getId();
+    }
+
+    private Client getClientWithEmpruntsAndDettes(long clientId) {
+        final EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        final TypedQuery<Client> query = em.createQuery(
+                "select c from Client c left join fetch c.emprunts ce left join fetch c.dettes where c.id = :clientId"
+                , Client.class);
+        query.setParameter("clientId", clientId);
+        final Client client = query.getSingleResult();
+
+        em.getTransaction().commit();
+        em.close();
+        return client;
     }
 
     @Override

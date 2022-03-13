@@ -41,7 +41,5 @@ public class ClientService {
         dao.returnBook(bookId, clientId);
     }
 
-    public void getDettes(){
-
-    }
+    public void getDettes(){}
 }

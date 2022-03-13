@@ -15,7 +15,9 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -35,10 +37,10 @@ public class Client {
     private boolean hasDebt;
 
     @OneToMany
-    private List<Emprunt> emprunts = new ArrayList<>();
+    private Set<Emprunt> emprunts = new HashSet<>();
 
     @OneToMany
-    private List<Dette> dettes = new ArrayList<>();
+    private Set<Dette> dettes = new HashSet<>();
 
 
 
@@ -101,6 +103,5 @@ public class Client {
     private boolean checkHasDebts(){
         return !this.dettes.isEmpty();
     }
-
 
 }

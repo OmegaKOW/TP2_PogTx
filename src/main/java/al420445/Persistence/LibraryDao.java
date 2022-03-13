@@ -10,7 +10,7 @@ public interface LibraryDao {
     long createClient(String name, String address);
     long createEmploye(String user, String pass);
 
-    long addBookToLibrary(String title, String author, String editor, long exemplaires, int release);
+    long addBookToLibrary(String title, String author, String editor, long exemplaires, int release, int nbPages, String genre);
 
     Livre getLivre(long livreId);
 
