@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +37,10 @@ public class Client {
     private boolean hasDebt;
 
     @OneToMany
-    private List<Document> documents = new ArrayList<>();
+    private List<Emprunt> emprunts = new ArrayList<>();
 
     @OneToMany
-    private List<Dette> dette = new ArrayList<>();
+    private List<Dette> dettes = new ArrayList<>();
 
 
 
@@ -66,6 +67,7 @@ public class Client {
             Emprunt emprunt = Emprunt.builder().client(this).doc(document).build();
             emprunt.getDoc().setExemplaires(emprunt.getDoc().getExemplaires() - 1);
             emprunt.setDateRetour();
+            emprunts.add(emprunt);
             return emprunt;
         }
         else return null;
@@ -74,6 +76,27 @@ public class Client {
 
     private boolean verifyEnoughExemplaires(Document document){
         return document.getExemplaires() > 0;
+    }
+
+
+    public double returnBook(Livre livre){
+        for(Emprunt e : emprunts){
+            if(e.getDoc() == livre){
+                checkDetteEmprunt(e);
+            }
+        }
+    }
+
+    public long checkDetteEmprunt(Emprunt emprunt){
+        long amtOfDaysLate = emprunt.getDateDeRetour().until(LocalDate.now(), ChronoUnit.DAYS);
+        setNewDette(emprunt, amtOfDaysLate);
+        return amtOfDaysLate;
+    }
+
+    private void setNewDette(Emprunt e, long daysLate){
+        Dette dette = Dette.builder().dette(daysLate * 0.25).build();
+        dette.getEmpruntsEndettes().add(e);
+        dettes.add(dette);
     }
 
 
